@@ -1,0 +1,694 @@
+		  Papers on Foundations of Concurrency
+	               Available by Anonymous FTP
+	                 from Boole.Stanford.EDU
+
+===========================================================================
+ANNOUNCEMENT, May 1, 1996:  For papers on Chu spaces, instead of this
+ASCII file start instead with
+
+	http://boole.stanford.edu/chuguide.html
+
+This is a web page that organizes those abstracts below that bear on
+Chu spaces into four categories, Introductory, Applications, Technical
+Notes, and Prehistory.  The abstracts in the present file are listed in
+reverse chronological order, which is not the most convenient
+organization for browsing.
+===========================================================================
+
+This file is ABSTRACTS in the /pub directory of Boole.Stanford.EDU,
+36.8.0.65, accessible by anonymous ftp.
+
+The /pub directory is for FTP distribution of prepublications in the
+area of foundations of concurrency.  It is run by the Stanford
+Concurrency Group, whose home is the Theory Division, Computer Science
+Department, Stanford University.  The group consists of the following
+people.
+
+	Russ Allbery			rra@cs.stanford.edu
+	Ruhan Alpaydin			ruhan@cs.stanford.edu
+	Harish Devarajan		harish@cs.stanford.edu
+	Rob van Glabbeek		rvg@cs.stanford.edu
+	Anna Patterson			annap@cs.stanford.edu
+	Gordon Plotkin (summers)	gdp@cs.stanford.edu
+	Vaughan Pratt (group leader)	pratt@cs.stanford.edu
+	Phyllis Winkler (secretary)	phy@cs.stanford.edu
+
+==========================Instructions=================================
+
+FTP LOGIN.  Give the following commands.
+
+	ftp boole.stanford.edu
+Login:	anonymous			(if you don't have an account on boole)
+Paswd:	user@host			(your usual email address)
+	bin
+	prompt off			(if you want no ? prompts from mget)
+	ls -ltr				(see what's there, most recent last)
+	mget filename-1 ... filename-n	(e.g.   mget cg.ps.gz jelia.ps.gz)
+	quit				(exit from FTP)
+
+SOURCE.  To retrieve the source to paper foo, cd /pub/TEX and get
+foo.tex.gz and uncompress it with gunzip.  The source should be
+compiled using "latex foo" twice, the second time being to resolve
+cross-references (if this annoys you let lamport@src.dec.com know).  A
+third time may be necessary with particularly complex documents, e.g.
+theses.  So the sequence is
+
+	cd /pub/TEX
+	get foo.tex.gz
+	quit		% or otherwise get out of ftp
+	gunzip foo.tex
+	latex foo
+	latex foo
+
+DVI.  If you wish to print paper foo without having to compile with
+latex, first "cd /pub/DVI" then retrieve foo.dvi.gz and uncompress it as
+above.  The command for printing it varies betwen hosts, ask your
+system administrator how to print dvi files if unsure.  Typical
+commands are
+
+	lpr -d foo.dvi
+	lpr foo.dvi		if your facility lets you omit the -d
+
+The /pub (top level) directory now contains the Postscript versions of
+all papers.  After uncompressing as above, they should print fine on
+any Postscript printer.
+
+PROBLEMS.  If you have problems in either retrieving or compiling
+papers, please contact pratt@cs.stanford.edu.
+
+===========================Available papers=================================
+
+TITLES
+
+smallgp     On the Representation of Abelian Groups as Chu Spaces
+tap	    Types as Processes, via Chu spaces
+parikh	    Chu spaces from the representational viewpoint
+dinat	    Towards Full Completeness for the Linear Logic of Chu Spaces
+bisimpi     Bisimulation and Propositional Intuitionistic Logic
+flat	    Axiomatizing Flat Iteration
+tool	    Branching Bisimulation as a Tool in the Analysis of Weak Bisimul'n
+prefix	    Axiomatizing Prefix Iteration with Silent Steps
+reshda	    Reconciling Event Structures and Higher Dimensional Automata
+broadll     Broadening the denotational semantics of linear logic
+llcocl	    Linear Logic complements Classical Logic
+embed       Chu realizes all small concrete categories
+chuconc     Chu Spaces and their Interpretation as Concurrent Objects
+conf	    Configuration Structures
+gamut       The Stone Gamut: A Coordinatization of Mathematics
+negative    The Meaning of Negative Premises in Transition System Spec'ns II
+tree        Ntyft/ntyxt Rules Reduce to Ntree Rules
+anapent     Anatomy of the Pentium Bug
+ratmech     Rational Mechanics and Natural Mathematics
+tppp        Time and Information in Sequential and Concurrent Computation
+uni         Shorter proof of universality of Chu spaces
+gupthes     Chu Spaces: A Model of Concurrency
+ph94        Chu Spaces: Automata with Quantum Aspects
+bud         Chu Spaces: Complementarity and Uncertainty in Rational Mechanics
+prob        Reactive, Generative & Stratified Models of Probabilistic Processes
+acp         On the Expressiveness of ACP
+gdp.dvi     Notes on the Chu construction and Recursion
+gdp2.dvi    Notes on Event Structures and Chu
+axiomst     Axiomatising ST-Bisimulation Equivalence
+sos         Full Abstraction in Structural Operational Semantics
+gates       Gates Accept Concurrent Behavior
+cks         Concurrent Kripke Structures
+branch      What is branching time and why to use it
+scbr        The Second Calculus of Binary Relations
+spectrum    The linear time - branching time spectrum II
+complete    A complete ax'n for branching bisim. cong. of fin.state behaviours
+ql          Linear Logic for Generalized Quantum Mechanics
+dti         The Duality of Time and Information
+ldomain     Disjunctive Systems and L-Domains
+monoidal    Some Monoidal Closed Categories of Stable Domains & Event Struct's
+twod        A Roadmap of Some Two-Dimensional Logics
+ocbr        Origins of the Calculus of Binary Relations
+dalg        Dynamic Algebras: Examples, Constructions, Applications
+algecon     Arithmetic + Logic + Geometry = Concurrency
+crewthes    Metric Process Models
+atch        Interleaving Semantics and Action Refinement with Atomic Choice
+casthes     On the Specification of Concurrent Systems
+es          Event Spaces and their Linear Logic
+cg          Modeling Concurrency with Geometry
+jelia       Action Logic and Pure Induction
+man         Temporal Structures
+pp2         Teams Can See Pomsets
+am4         Enriched Categories and the Floyd-Warshall Connection
+iowatr      Dynamic Algebras as a well-behaved fragment of Relation Algebras
+ijpp        Modelling Concurrency with Partial Orders
+
+-----------------------------------------------------------------------
+
+ABSTRACTS
+
+smallgp
+
+	@Unpublished(
+Pr97d,	Author="Pratt, V.R.",
+	Title="On the Representation of Abelian Groups as Chu Spaces",
+	Comment="Draft Report", Month=Oct, Year=1997)
+
+We compare two representations of finite Abelian groups as Chu spaces.
+The first represents the elements of any ternary relational structure
+as words on an 8-letter alphabet.  The second is based on the group
+characters of abelian groups as the elements of the dual group.
+
+
+tap
+
+	@InProceedings(
+Pr97c,	Author="Pratt, V.R.",
+	Title="Types as Processes, via Chu spaces",
+	Booktitle="EXPRESS'97 Proceedings", Year=1997)
+
+We match up types and processes by putting values in correspondence
+with events, coproduct with (noninteracting) parallel composition, and
+tensor product with orthocurrence.  We then bring types and processes
+into closer correspondence by broadening and unifying the semantics
+of both using Chu spaces and their transformational logic.  Beyond this
+point the connection appears to break down; we pose the question of
+whether the failures of the corrrespondence are intrinsic or cultural.
+
+
+parikh
+
+        @InCollection(
+Pr97b,  Author="Pratt, V.R.",
+        Title="Chu spaces from the representational viewpoint",
+        Booktitle="Parikh Festschrift", Year=1997)
+
+We give an elementary introduction to Chu spaces.  The
+perspective taken views their elements as represented by words of a
+fixed length over some alphabet.  This perspective dualizes the
+alternative view of Chu spaces as generalized topological spaces, and
+has the advantage of substituting the intuitions of formal language
+theory for those of topology.
+
+
+dinat
+
+	@InProceedings(
+Pr97a,  Author="Pratt, V.R.",
+	Title={Towards Full Completeness for the Linear Logic of Chu spaces},
+	Booktitle="Proc. Math. Foundations of Programming Semantics (MFPS'97)",
+	Series="ENTCS (Electronic Notes of Theoretical
+	   Computer Science)", Address="Pittsburgh", Year=1997)
+
+We prove full completeness for a fragment of the linear logic of the
+self-dual monoidal category of Chu spaces over 2, namely that the
+proofs between semisimple (conjunctive normal form) formulas of
+multiplicative linear logic without constants having two occurrences of
+each variable are in bijection with the dinatural transformations
+between the corresponding functors.  The proof assigns to variables
+domains having at most four elements, demonstrating a uniform finite
+model property for this fragment.  We define a notion of proof function
+analogous to the notion of truth function, determining a transformation
+between functors, and show that the transformation denoted by a proof
+net is dinatural if and only if the proof net is sound, namely acyclic
+and connected.  Proof functions are of independent interest as a 2-valued
+model of MLL with MIX.
+
+
+bisimpi
+
+The Brouwer-Heyting-Kolmogorov interpretation of intuitionistic logic
+suggests that p implies q can be interpreted as a computation that
+given a proof of p constructs a proof of q.  Dually, we show that every
+finite canonical model of q contains a finite canonical model of p.  If
+q and p are interderivable, their canonical models contain each other.
+
+Using this insight, we are able to characterize validity in a Kripke
+structure in terms of bisimilarity.
+
+    Theorem 1: Let K be a finite Kripke structure for propositional
+    intuitionistic logic, then two worlds in K are bisimilar if and
+    only if they satisfy the same set of formulas.
+
+This theorem lifts to structures in the following manner.
+
+    Theorem 2:  Two finite Kripke structures K and K' are bisimilar if
+    and only if they have the same set of valid formulas.
+
+We generalize these results to a variety of infinite structures; finite
+principal filter structures and saturated structures.
+
+
+flat
+
+        @Misc(
+vG95a,  Author="Glabbeek, R.J. van",
+        Title ="Axiomatizing Flat Iteration", Month=Apr,
+	Year ="1997", Howpublished = 
+        "Available at {\tt ftp://boole.stanford.edu/pub/flat.ps.gz}"
+	Note = "To appear in Proceedings CONCUR '97, Warsaw, Poland,
+        July 1997 (A. Mazurkiewicz and J. Winkowski, eds.), LNCS,
+        Springer-Verlag, 1997")
+
+Flat iteration is a variation on the original binary version of the
+Kleene star operation P*Q, obtained by restricting the first argument
+to be a sum of atomic actions. It generalizes prefix iteration, in
+which the first argument is a single action. Complete finite equational
+axiomatizations are given for five notions of bisimulation congruence
+over basic CCS with flat iteration, viz. strong congruence, branching
+congruence, eta-congruence, delay congruence and weak congruence. Such
+axiomatizations were already known for prefix iteration and are known
+not to exist for general iteration.  The use of flat iteration has two
+main advantages over prefix iteration:
+1. The current axiomatizations generalize to full CCS, whereas the
+   prefix iteration approach does not allow an elimination theorem
+   for an asynchronous parallel composition operator.
+2. The greater expressiveness of flat iteration allows for much
+   shorter completeness proofs.
+In the setting of prefix iteration, the most convenient way to obtain
+the completeness theorems for eta-, delay, and weak congruence was by
+reduction to the completeness theorem for branching congruence. In the
+case of weak congruence this turned out to be much simpler than the
+only direct proof found. In the setting of flat iteration on the other
+hand, the completeness theorems for delay and weak (but not eta-)
+congruence can equally well be obtained by reduction to the one for
+strong congruence, without using branching congruence as an
+intermediate step.  Moreover, the completeness results for prefix
+iteration can be retrieved from those for flat iteration, thus
+obtaining a second indirect approach for proving completeness for delay
+and weak congruence in the setting of prefix iteration.
+
+
+tool
+
+	@Misc(
+vG95a,	Author="Glabbeek, R.J. van",
+	Title ="Branching Bisimulation as a Tool in the Analysis of
+	Weak Bisimulation", Month=Sep, Year ="1995", Howpublished = 
+	"Available at {\tt ftp://boole.stanford.edu/pub/tool.ps.gz}")
+
+It is shown that the analysis of weak congruence can sometimes be
+simplified by means of a similar analysis of branching congruence as
+an intermediate step. This point is made through a completeness proof
+for an equational axiomatization of basic CCS with prefix iteration.
+
+
+prefix
+
+	@Article(
+AFGI96,	Author="L. Aceto and W.J. Fokkink and Glabbeek, R.J. van and
+	A. Ing\'olfsd\'ottir", Journal="Information and Computation",
+	Title ="Axiomatizing Prefix Iteration with Silent Steps",
+	Volume=127, Number=1, Pages="26-40", Year=1996)
+
+Prefix iteration is a variation on the original binary version of the
+Kleene star operation P*Q, obtained by restricting the first argument
+to be an atomic action. The interaction of prefix iteration with
+silent steps is studied in the setting of Milner's basic CCS. Complete
+equational axiomatizations are given for four notions of behavioural
+congruence over basic CCS with prefix iteration, viz. branching
+congruence, eta-congruence, delay congruence and weak congruence. The
+completeness proofs for eta-, delay, and weak congruence are obtained
+by reduction to the completeness theorem for branching congruence. It
+is also argued that the use of the completeness result for branching
+congruence in obtaining the completeness result for weak congruence
+leads to a considerable simplification with respect to the only direct
+proof presented in the literature. The preliminaries and the completeness
+proofs focus on open terms, i.e., terms that may contain process
+variables. As a byproduct, the omega-completeness of the axiomatizations
+is obtained as well as their completeness for closed terms.
+
+
+reshda
+
+	Reconciling Event Structures and Higher Dimensional Automata
+	V.R. Pratt
+	Submitted to a conference
+
+Addressing the problem in the title, we diagnose the essential
+difficulty as the implicit assumption of two-valued logic in the event
+structure view of event occurrence as a true-or-false proposition.
+Taking the 3-valued logic of before-during-after as the common
+underlying logic of both event structures and higher dimensional
+automata (HDA's) unifies them into a single model having the same
+process algebra, linear logic, and schedule-automaton duality as had
+previously been achieved for event structures, but not previously for
+HDA's.  The crucial tool is Chu spaces, whose application to
+concurrency has previously limited itself to Chu spaces over 2, and
+which here is taken over 3.
+
+
+broadll
+
+	Broadening the denotational semantics of linear logic
+	V.R. Pratt
+	To appear in ENTCS proceedings of Linear Logic '96, Tokyo
+
+The proof-theoretic origins and specialized models of linear logic make
+it primarily operational in orientation.  In contrast first-order logic
+treats the operational and denotational aspects of general mathematics
+quite evenhandedly.  Here we show that linear logic has models of even
+broader denotational scope than those of first order logic, namely Chu
+spaces, the category of which Barr has observed to form a model of
+linear logic.  We have previously argued that every category of n-ary
+relational structures embeds fully and concretely in the category of
+Chu spaces over 2^n.  The main contributions of this paper are
+improvements to that argument, and an embedding of every small category
+in the category of Chu spaces via a symmetric variant of the Yoneda
+embedding.
+
+
+llcocl
+
+	Linear Logic complements Classical Logic
+	V.R. Pratt
+	To appear in preliminary proceedings of Linear Logic '96, Tokyo
+
+Classical logic enforces the separation of individuals and predicates,
+linear logic draws them together via interaction; these are not
+right-or-wrong alternatives but dual or complementary logics.  Linear
+logic is an incomplete realization of this duality.  While its
+completion is not essential for the development and maintenance of
+logic, it is crucial for its application.  We outline the
+``four-square'' program for completing the connection, whose corners
+are set, function, number, and arithmetic, and define ordinal Set, a
+bicomplete *equational* topos, meaning its canonical isomorphisms are
+identities, including associativity of product.
+
+
+embed
+
+	   Chu realizes all small concrete categories
+	   V.R. Pratt
+	   Draft in preparation
+
+The category Chu is concretely universal for much of concrete
+mathematics; in particular it concretely represents or realizes all
+categories of relational structures and their homomorphisms, as well as
+all topological such.  This note extends these results to all small
+concrete categories, equivalently all small subcategories of Set.  The
+category C is realized in Chu(Set,K) where K is the disjoint union of
+the underlying sets of objects of C.  Each object is realized as the
+normal Chu space (A,X) where X consists of all functions from A in C
+astricted to K.
+
+
+chuconc
+
+	@InCollection(
+Pr95d,	Author=	"Pratt, V.R.",
+	Title=	"Chu Spaces and their Interpretation as Concurrent Objects",
+	Booktitle="Computer Science Today: Recent Trends and
+	Developments", Series=LNCS, Volume=1000, Pages="392-405",
+	Editor="van Leeuwen, J.", Publisher="Springer-Verlag", Year="1995")
+			 
+A Chu space is a binary relation =| from a set A to an antiset X
+defined as a set which transforms via converse functions.  Chu spaces
+admit a great many interpretations by virtue of realizing all small
+concrete categories and most large ones arising in mathematical and
+computational practice.  Of particular interest for computer science is
+their interpretation as computational processes, which takes A to be a
+schedule of events distributed in time, X to be an automaton of states
+forming an information system in the sense of Scott, and the pairs
+(a,x) in the =| relation to be the individual transcriptions of the
+making of history.  The traditional homogeneous binary relations of
+transition on X and precedence on A are recovered as respectively the
+right and left residuals of the heterogeneous binary relation =| with
+itself.  The natural algebra of Chu spaces is that of linear logic,
+made a process algebra by the process interpretation.
+
+
+conf
+
+	@InProceedings(
+GP95,	Author="Glabbeek, R.J. van and Plotkin, G.D.",
+	Title="Configuration Structures (extended abstract)",
+	Booktitle="{\rm Proceedings $10^{th}$ Annual IEEE Symposium on}
+	  Logic in Computer Science, {\rm LICS'95, San Diego, USA, June 1995}",
+	Editor="D. Kozen", Month="June", Pages = "199-209",
+	Publisher="IEEE Computer Society Press", Year="1995",
+	Note="Available at {\tt ftp://boole.stanford.edu/pub/conf.ps.gz}")
+
+Configuration structures provide a model of concurrency generalising
+the families of configurations of event structures. They can be
+considered logically, as classes of propositional models; then
+sub-classes can be axiomatised by formulae of simple prescribed forms.
+Several equivalence relations for event structures are generalised to
+configuration structures, and also to general Petri nets.
+Every configuration structure is shown to be ST-bisimulation
+equivalent to a prime event structure with binary conflict;
+this fails for the tighter history preserving bisimulation.
+Finally, Petri nets without self-loops under the collective token
+interpretation are shown behaviourally equivalent to configuration
+structures, in the sense that there are translations in both
+directions respecting history preserving bisimulation. This fails for
+nets with self-loops.
+
+
+gamut
+
+	@InProceedings(
+Pr95c,	Author="Pratt, V.R.",
+	Title="The {S}tone Gamut: A Coordinatization of Mathematics",
+	Booktitle="Logic in Computer Science", Pages="444-454",
+	Month="June", Publisher="IEEE Computer Society", Year="1995")
+
+We give a uniform representation of the objects of mathematical
+practice as Chu spaces, forming a concrete self-dual bicomplete closed
+category and hence a constructive model of linear logic.  This
+representation distributes mathematics over a two-dimensional space we
+call the Stone gamut.  The Stone gamut is coordinatized horizontally by
+coherence, ranging {from} -1 for sets to 1 for complete atomic
+Boolean algebras (CABA's), and vertically by complexity of language.
+Complexity 0 contains only sets, CABA's, and the inconsistent empty
+set.  Complexity 1 admits noninteracting set-CABA pairs.  The entire
+Stone duality menagerie of partial distributive lattices enters at
+complexity 2.  Groups, rings, fields, graphs, and categories have all
+entered by level 16, and every category of relational structures and
+their homomorphisms eventually appears.  The key is the identification
+of continuous functions and homomorphisms, which puts Stone-Pontrjagin
+duality on a uniform basis by merging algebra and topology into a
+simple common framework.
+
+
+negative
+
+	@Techreport(
+vG95,	Author=	"Glabbeek, R.J. van",
+	Title=	"The Meaning of Negative Premises in Transition System
+		 Specifications {II}", Month=Feb, Year=1995, 
+	Institution="Stanford University", Number="STAN-CS-TN-95-16",
+	Note="Available at {\tt ftp://boole.stanford.edu/pub/negative.ps.gz}.
+	Extended abstract in F. Meyer auf der Heide \& B. Monien, editors:
+	Proceedings 23$^{\it th}$ International Colloquium on {\em Automata,
+	Languages and Programming}, ICALP '96, Paderborn, Germany, July 1996,
+	LNCS 1099, Springer-Verlag, pp. 502--513")
+
+This paper reviews several methods to associate transition relations
+to transition system specifications with negative premises in
+Plotkin's structural operational style.  Besides a formal comparison
+on generality and relative consistency, the methods are also evaluated
+on their taste in determining which specifications are meaningful and
+which are not.
+
+
+tree
+
+	@Article(
+FG95,	Author=	"Fokkink, W.J. and Glabbeek, R.J. van",
+	Title=	"Ntyft/ntyxt Rules Reduce to Ntree Rules", 
+	Journal="Information and Computation",
+	Volume=126, Number=1, Pages="1-10", Year=1996)
+
+Groote and Vaandrager introduced the tyft/tyxt format for Transition
+System Specifications (TSSs), and established that for each TSS in
+this format that is well-founded, the bisimulation equivalence it
+induces is a congruence.  In this paper, we construct for each TSS in
+tyft/tyxt format an equivalent TSS that consists of tree rules only.
+As a corollary we can give an affirmative answer to an open question,
+namely whether the well-foundedness condition in the congruence
+theorem for tyft/tyxt can be dropped. These results extend to
+tyft/tyxt with negative premises and predicates.
+
+
+anapent
+
+	@InProceedings(
+Pr95b,	Author="Pratt, V.R.",
+	Title="Anatomy of the Pentium Bug",
+	Booktitle="TAPSOFT'95", Series=LNCS, Volume=915,
+	Address="Aarhus, Denmark", Pages="97-107",
+	Publisher="Springer-Verlag", Year=1995)
+
+The Pentium computer chip's division algorithm relies on a table from
+which five entries were inadvertently omitted, with the result that
+1738 single precision dividend-divisor pairs yield relative errors
+whose most significant bit is uniformly distributed from the 14th to
+the 23rd (least significant) bit.  This corresponds to a rate of one
+error every 40 billion random single precision divisions.  The same
+general pattern appears at double precision, with an error rate of one
+in every 9 billion divisions or 75 minutes of division time.
+
+These rates assume randomly distributed data.  The distribution
+of the faulty pairs themselves however is far from random, with the
+effect that if the data is so nonrandom as to be just the constant 1,
+then random calculations started from that constant produce a
+division error once every few minutes, and these errors will sometimes
+propagate many more steps.  A much higher rate yet is obtained when
+dividing small (<100) integers ``bruised'' by subtracting one
+millionth, where every 400 divisions will see a relative error of at
+least one in a million.
+
+The software engineering implications of the bug include the
+observations that the method of exercising reachable components cannot
+detect reachable components mistakenly believed unreachable, and that
+handchecked proofs build false confidence. 
+
+
+ratmech
+
+	@InProceedings(
+Pr95a,	Author="Pratt, V.R.",
+	Title="Rational Mechanics and Natural Mathematics",
+	Booktitle="TAPSOFT'95", Series=LNCS, Volume=915, Address="Aarhus,
+	Denmark", Pages="108-122", Publisher="Springer-Verlag", Year=1995)
+
+Chu spaces have found applications in computer science, mathematics,
+and physics.  They enjoy a useful categorical duality analogous to that
+of lattice theory and projective geometry.  As natural mathematics Chu
+spaces borrow ideas from the natural sciences, particularly physics,
+while as rational mechanics they cast Hamiltonian mechanics in terms of
+the interaction of body and mind.
+
+This paper addresses the chief stumbling block for Descartes'
+17th-century philosophy of mind-body dualism, how can the fundamentally
+dissimilar mental and physical planes causally interact with each
+other?  We apply Cartesian logic to reject not only divine
+intervention, preordained synchronization, and the eventual mass
+retreat to monism, but also an assumption Descartes himself somehow
+neglected to reject, that causal interaction within these planes is an
+easier problem than between.  We use Chu spaces and residuation to
+derive all causal interaction, both between and within the two planes,
+from a uniform and algebraically rich theory of between-plane
+interaction alone.  Lifting the two-valued Boolean logic of binary
+relations to the complex-valued fuzzy logic of quantum mechanics
+transforms residuation into a natural generalization of the inner
+product operation of a Hilbert space and demonstrates that this account
+of causal interaction is of essentially the same form as the
+Heisenberg-Schr"odinger quantum-mechanical solution to analogous
+problems of causal interaction in physics.
+
+
+tppp
+
+	@InProceedings(
+Pr94c,	Author="Pratt, V.R.",
+	Title="Time and Information in Sequential and Concurrent Computation",
+	Booktitle="Proc. Theory and Practice of Parallel Programming
+	(TPPP'94)", Address="Sendai, Japan", Month=Nov, Pages="1-24".
+	Year=1994)
+
+Time can be understood as dual to information in extant models of both
+sequential and concurrent computation.  The basis for this duality is
+phase space, coordinatized by time and information, whose axes are
+oriented respectively horizontally and vertically.  We fit various
+basic phenomena of computation, and of behavior in general, to the
+phase space perspective.  The extant two-dimensional logics of
+sequential behavior, the van Glabbeek map of branching time and true
+concurrency, event-state duality and schedule-automaton duality, and
+Chu spaces, all fit the phase space perspective well, in every case
+confirming our choice of orientation.
+
+
+uni
+
+	@Note(
+Pr94b,  Author="Vaughan Pratt",
+	Title="Shorter proof of universality of Chu spaces",
+	School="Stanford University", Month=Aug, Year=1994)
+
+We give a shorter proof of the result in section 5 of our MFPS'93 paper
+(scbr), that every k-ary relational structure is realizable as a Chu
+space.
+
+
+gupthes   
+
+	@PhDThesis(
+Gup94,  Author="Vineet Gupta", Title="Chu Spaces: A Model of Concurrency",
+	School="Stanford University", Month=Sep, Year=1994)
+
+A Chu space is a binary relation between two sets.  In this thesis we
+show that Chu spaces form a non-interleaving model of concurrency which
+extends event structures while endowing them with an algebraic
+structure whose natural logic is linear logic.
+
+We provide several equivalent definitions of Chu spaces, including two
+pictorial representations.  Chu spaces represent processes as automata
+or schedules, and Chu duality gives a simple way of converting between
+schedules and automata.  We show that Chu spaces can represent various
+concurrency concepts like conflict, temporal precedence and internal
+and external choice, and they distinguish between causing and enabling
+events.
+
+We present a process algebra for Chu spaces including the standard
+combinators like parallel composition, sequential composition, choice,
+interaction, restriction, and show that the various operational
+identities between these hold for Chu spaces.  The solution of
+recursive domain equations is possible for most of these operations,
+giving us an expressive specification and programming language.  We
+define a history preserving equivalence between Chu spaces, and show
+that it preserves the causal structure of a process.
+
+
+ph94
+
+	@InProceedings(
+Pr94b,	Author="Pratt, V.R.",
+	Title="Chu Spaces: Automata with Quantum Aspects",
+	Booktitle="Proc. Workshop on Physics and Computation
+	(PhysComp'94)", Pages="186-195", Address="Dallas", Publisher="{IEEE}",
+	Year=1994)
+
+Chu spaces are a recently developed model of concurrent computation
+extending automata theory to express branching time and true
+concurrency.  They exhibit in a primitive form the quantum mechanical
+phenomena of complementarity and uncertainty.  The complementarity
+arises as the duality of information and time, automata and schedules,
+and states and events.  Uncertainty arises when we define a measurement
+to be a morphism and notice that increasing structure in the observed
+object reduces clarity of observation.  For Chu spaces this uncertainty
+can be calculated in an attractively simple way directly from its
+dimensions.
+
+
+bud
+
+	@TechReport(
+Pr94,	Author="Pratt, V.R.",
+	Title="Chu Spaces: Complementarity and Uncertainty in Rational
+	Mechanics",
+	Note="Course notes, TEMPUS summer school, 35pp",
+	Address="Budapest", Year=1994)
+
+Notes for five lectures given at the Tempus summer school, Budapest,
+July 1994.  Topics covered:  Introduction to Chu spaces.  Behavior:
+from event structures to rational mechanics.  Algebra: from linear
+logic to process algebra.  Relational structures.  Heisenberg
+uncertainty in Chu spaces.
+
+
+prob
+
+	@Article(
+GSS,	Author= "Glabbeek, R.J. van and Smolka, S.A. and Steffen, B.",
+	Title=  "Reactive, Generative and Stratified Models of
+	Probabilistic Processes", Journal="Information and Computation",
+	Volume=121, Number=1, Pages="59-80", Year=1995)
+
+We introduce three models of probabilistic processes, namely, reactive,
+generative and stratified.  These models are investigated within the context
+of PCCS, an extension of Milner's SCCS in which each summand of a process
+summation expression is guarded by a probability and the sum of these
+probabilities is 1.  For each model we present a structural operational
+semantics of PCCS and a notion of bisimulation equivalence which we prove to be
+a congruence.  We also show that the models form a hierarchy:  the reactive
+model is derivable from the generative model by abstraction from the relative
+probabilities of different actions, and the generative model is derivable from
+the stratified model by abstraction from the purely probabilistic branching
+structure. Moreover the classical nonprobabilistic model is derivable
+from each of these models by abstraction from all probabilities.
+

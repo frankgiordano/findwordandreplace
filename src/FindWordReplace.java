@@ -112,11 +112,11 @@ public class FindWordReplace {
 	            dictionary = new HashMap<String, HashMap<Integer, ArrayList<Integer>>>();
 	            newFile = new ArrayList<String>();
 
-	            // Create a reader which reads our file. In this example searchfile.txt is the file we are searching.
+	            // create a reader which reads our file. 
 	            BufferedReader bReader = new BufferedReader(new FileReader(fileName));
 
-	            // While we loop through the file, read each line until there is nothing left to read.
-	            // This assumes we have carriage returns ending each text line.
+	            // while we loop through the file, read each line until there is nothing left to read.
+	            // this assumes we have carriage returns ending each text line.
 	            newFile.add("");
 	            while ((line = bReader.readLine()) != null) {
 	            	
@@ -155,11 +155,11 @@ public class FindWordReplace {
 	                 } 
 
 	             }
-	             // Close the reader.
+	             // close the reader.
 	             bReader.close(); 
 	       }
 	       catch (IOException e) {
-	                // We encountered an error with the file, print it to the user.
+	                // we encountered an error with the file, print it to the user.
 	                System.out.println("Error: " + e.toString());
 	       }
 	}

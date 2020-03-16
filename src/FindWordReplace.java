@@ -10,10 +10,11 @@ import java.util.Map.Entry;
 /*
  * This program implements word dictionary with positions stored. It implements something similar to the
  * first half of the following link:
+ *
  * http://www.ardendertat.com/2011/12/20/programming-interview-questions-23-find-word-positions-in-text/
+ *
  * and takes it a step further by asking for a word to search and word to replace each instance within a
- * hard coded specified file located in current running directory and saves the resultant text to a new
- * text file.
+ * specified file located in current running directory and saves the resultant text to a new text file.
  *
  * The structure of the code flow is that a text file is read from the current running location and reads
  * in every line and looks at each word and stores it location/position within the line.

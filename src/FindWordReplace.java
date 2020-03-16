@@ -16,14 +16,14 @@ import java.util.Map.Entry;
  * and takes it a step further by asking for a word to search and word to replace each instance within a
  * specified file and saves the resultant text to a new text file.
  *
- * The structure of the code flow is that a text file is read from the current running location and reads
- * in every line and looks at each word and stores it location/position within the line.
+ * The structure of the code flow is that a given text file is read incrementally per line and looks at
+ * each word and stores its location/position within the line.
  *
  * The main data structure is a HashMap that has a key of word and value of another HashMap that has key
  * as line number and value as positions within that line.
  *
  * author: Frank Giordano 10/24/2015
- */
+*/
 public class FindWordReplace {
 
     // string = word, HashMap<Integer, ArrayList<Integer>> = line #, list of position numbers within the line

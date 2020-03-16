@@ -104,8 +104,7 @@ public class FindWordReplace {
             }
 
             bReader.close();
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             System.out.print("Error reading file. Error message = " + e.getMessage());
             System.exit(-1);
         }

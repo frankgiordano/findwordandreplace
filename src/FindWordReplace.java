@@ -27,13 +27,14 @@ public class FindWordReplace {
 
     // string = word, HashMap<Integer, ArrayList<Integer>> = line #, list of position numbers within the line
     private static HashMap<String, HashMap<Integer, ArrayList<Integer>>> dictionary;
-    private static final String fileName = "t3.txt";
-    private static final String outputFileName = "t3.results.txt";
+    private static String fileName;
+    private static String outputFile;
     private static ArrayList<String> newFile;
+    private static boolean verbose = false;
 
     private static void processFile() {
 
-        int posFound = 0;
+        int position = 0;
         int lineCount = 0;
         String line = "";
 
@@ -42,7 +43,6 @@ public class FindWordReplace {
         dictionary = new HashMap<>();
         newFile = new ArrayList<>();
         try {
-            // create a reader which reads our file.
             BufferedReader bReader = new BufferedReader(new FileReader(fileName));
 
             // while we loop through the file, read each line until there is nothing left to read.
@@ -60,57 +60,67 @@ public class FindWordReplace {
                         continue;
 
                     int startIndex = 0;
-                    while ((posFound = line.indexOf(word, startIndex)) != -1) {
-
-                        // ignore finding the word text within another large word...
-                        // we dont need to store the position. No text replacement.
-                        if (isWordEmbedded(posFound, word, line)) {
-                            startIndex = posFound + word.length();  // move search index ahead
+                    while ((position = line.indexOf(word, startIndex)) != -1) {
+                        startIndex = position + word.length();
+                        // ignore finding the word text within another larger word
+                        if (isWordEmbedded(position, word, line)) {
                             continue; // skip this position
                         }
 
-                        if (dictionary.containsKey(word)) {
-                            wordLinePosInfo = dictionary.get(word);
-                            if (wordLinePosInfo.get(lineCount) != null) {
-                                // find the position of this word from the last saved known position
-                                ArrayList<Integer> currWordLinePositions = wordLinePosInfo.get(lineCount);
-                                // get the last word position from the list
-                                int lastKnownPos = currWordLinePositions.get(currWordLinePositions.size() - 1);
-                                // increase last known position to the end of the word so it starts searching there
-                                lastKnownPos = lastKnownPos + word.length();
-                                // search for the next word occurrence from current read in line file
-                                posFound = line.indexOf(word, lastKnownPos);
-                                if (posFound == -1)
-                                    break;
-                                if (!currWordLinePositions.contains(Integer.valueOf(posFound)))
-                                    wordLinePosInfo.get(lineCount).add(posFound);
-                            } else {
-                                ArrayList<Integer> position = new ArrayList<>();
-                                position.add(posFound);
-                                wordLinePosInfo.put(lineCount, position);
-                            }
-                        } else {
+                        // first time this word is seen
+                        if (!dictionary.containsKey(word)) {
                             wordLinePosInfo = new HashMap<>();
-                            ArrayList<Integer> position = new ArrayList<>();
-                            position.add(posFound);
-                            wordLinePosInfo.put(lineCount, position);
+                            addFirstLinePosition(position, lineCount, wordLinePosInfo);
                             dictionary.put(word, wordLinePosInfo);
+                            break;
                         }
-                        startIndex = posFound + word.length();
-                    }
+
+                        // first time adding a position for this word for this line
+                        if (dictionary.containsKey(word) && dictionary.get(word).get(lineCount) == null) {
+                            wordLinePosInfo = dictionary.get(word);
+                            addFirstLinePosition(position, lineCount, wordLinePosInfo);
+                            break;
+                        }
+
+                        // at this point, it is obvious add position to existing word/line storage
+                        wordLinePosInfo = dictionary.get(word);
+                        // retrieve all current positions of the word found so far for this line
+                        ArrayList<Integer> currWordLinePositions = wordLinePosInfo.get(lineCount);
+                        // get the last word position from the list
+                        int lastKnownPos = currWordLinePositions.get(currWordLinePositions.size() - 1);
+                        // increase last known position to the end of the word so it starts searching there
+                        lastKnownPos = lastKnownPos + word.length();
+                        // search for the next word occurrence from current read in line file
+                        position = line.indexOf(word, lastKnownPos);
+                        if (position == -1)
+                            break;
+                        if (!currWordLinePositions.contains(Integer.valueOf(position))) {
+                            wordLinePosInfo.get(lineCount).add(position);
+                            startIndex = position + word.length();
+                        }
                 }
             }
-
-            // close the reader.
-            bReader.close();
-        } catch (IOException e) {
-            System.out.print("Error reading file. Error message = " + e.getMessage());
-            System.exit(-1);
         }
+
+        bReader.close();
+    } catch(
+    IOException e)
+
+    {
+        System.out.print("Error reading file. Error message = " + e.getMessage());
+        System.exit(-1);
+    }
+
+}
+
+    private static void addFirstLinePosition(int position, int lineCount, HashMap<Integer, ArrayList<Integer>> wordLinePosInfo) {
+        ArrayList<Integer> positions = new ArrayList<>();
+        positions.add(position);
+        wordLinePosInfo.put(lineCount, positions);
     }
 
     public static boolean isWordEmbedded(int position, String word, String line) {
-        if (position != 0 && position != line.length() -1 && position + (word.length() - 1) != (line.length() - 1)) {
+        if (position != 0 && position != line.length() - 1 && position + (word.length() - 1) != (line.length() - 1)) {
             boolean isAlphabeticRightSide = Character.isAlphabetic(line.charAt(position + (word.length())));
             boolean isAlphabeticLeftSide = Character.isAlphabetic(line.charAt(position - 1));
             if (isAlphabeticRightSide || isAlphabeticLeftSide) {
@@ -120,15 +130,16 @@ public class FindWordReplace {
         return false;
     }
 
-    public static void wordReplace(String[] parameters) {
+    public static void wordReplace(String[] parameters, String file) {
 
         String searchWord = toLowerCase(parameters[0]);
         String replaceWord = parameters[1];
 
+        fileName = file;
         processFile();
 
         if (!dictionary.containsKey(searchWord)) {
-            System.out.println(" The following word " + searchWord + " was not found.");
+            System.out.println("The following word " + searchWord + " was not found.");
         } else {
             for (Entry<Integer, ArrayList<Integer>> entry : dictionary.get(searchWord).entrySet()) {
                 foundMsg(searchWord, entry);
@@ -162,6 +173,8 @@ public class FindWordReplace {
     }
 
     private static void foundMsg(String searchWord, Entry<Integer, ArrayList<Integer>> entry) {
+        if (!verbose)
+            return;
         StringBuilder message = new StringBuilder();
         message.append("The following word ");
         message.append("\"");
@@ -175,6 +188,8 @@ public class FindWordReplace {
     }
 
     private static void changingMsg(Entry<Integer, ArrayList<Integer>> entry) {
+        if (!verbose)
+            return;
         StringBuilder message = new StringBuilder();
         message.append("Changing Line number = ");
         message.append(entry.getKey());
@@ -186,6 +201,8 @@ public class FindWordReplace {
     }
 
     private static void changedMsg(Entry<Integer, ArrayList<Integer>> entry) {
+        if (!verbose)
+            return;
         StringBuilder message = new StringBuilder();
         message.append("Changed Line number = ");
         message.append(entry.getKey());
@@ -198,8 +215,9 @@ public class FindWordReplace {
 
     private static void writeOutputFile() {
         BufferedWriter writer = null;
+        outputFile = fileName + ".out";
         try {
-            writer = new BufferedWriter(new FileWriter(outputFileName));
+            writer = new BufferedWriter(new FileWriter(outputFile));
             for (String line : newFile) {
                 if (line != null) {
                     writer.write(line);
@@ -226,10 +244,37 @@ public class FindWordReplace {
         return result.toString();
     }
 
+    private static void setVerbosity(String args[]) {
+        if (args.length == 0)
+            return;
+
+        if ("-verbose".equals(args[0]))
+            verbose = true;
+    }
+
+    private static String getInputFile() {
+        byte[] input;
+        input = new byte[80];
+
+        System.out.println("Enter filename to read");
+        System.out.print(">\t");
+        try {
+            System.in.read(input);
+            fileName = (new String(input, 0, input.length)).trim();
+        } catch (IOException e) {
+            System.out.print("Error reading given input. Error message = " + e.getMessage());
+            System.exit(-1);
+        }
+        return fileName;
+    }
+
     public static void main(String args[]) {
 
         String words = null;
         byte[] input;
+
+        setVerbosity(args);
+        String fileName = getInputFile();
 
         do {
             input = new byte[80];
@@ -244,13 +289,14 @@ public class FindWordReplace {
             words = (new String(input, 0, input.length)).trim();
             if (words.length() > 0) {
                 String[] parameters = words.split(" ");
-                FindWordReplace.wordReplace(parameters);
+                FindWordReplace.wordReplace(parameters, fileName);
             } else if (words.length() == 1 || words.length() > 2) {
                 System.out.print("Two inputs not provided.");
                 System.exit(-1);
             } else {
                 System.exit(-1);
             }
+            System.out.println("Resultant file is " + outputFile);
         } while (words.length() > 0);
     }
 

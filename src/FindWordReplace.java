@@ -99,20 +99,17 @@ public class FindWordReplace {
                             wordLinePosInfo.get(lineCount).add(position);
                             startIndex = position + word.length();
                         }
+                    }
                 }
             }
+
+            bReader.close();
+        } catch (
+                IOException e) {
+            System.out.print("Error reading file. Error message = " + e.getMessage());
+            System.exit(-1);
         }
-
-        bReader.close();
-    } catch(
-    IOException e)
-
-    {
-        System.out.print("Error reading file. Error message = " + e.getMessage());
-        System.exit(-1);
     }
-
-}
 
     private static void addFirstLinePosition(int position, int lineCount, HashMap<Integer, ArrayList<Integer>> wordLinePosInfo) {
         ArrayList<Integer> positions = new ArrayList<>();

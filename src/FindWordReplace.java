@@ -124,6 +124,13 @@ public class FindWordReplace {
                 return true;
             }
         }
+
+        if (position == 0 && (position + (word.length()) < line.length())) {
+            boolean isAlphabeticRightSide = Character.isAlphabetic(line.charAt(position + (word.length())));
+            if (isAlphabeticRightSide)
+                return true;
+        }
+
         return false;
     }
 

@@ -261,10 +261,13 @@ public class FindWordReplace {
         input = new byte[80];
 
         System.out.println("Enter filename to read");
-        System.out.print(">\t");
+        System.out.print("> ");
         try {
             System.in.read(input);
             fileName = (new String(input, 0, input.length)).trim();
+            if (fileName.isEmpty()) {
+                System.exit(0);
+            }
         } catch (IOException e) {
             System.out.print("Error reading given input. Error message = " + e.getMessage());
             System.exit(-1);
@@ -283,7 +286,7 @@ public class FindWordReplace {
         do {
             input = new byte[80];
             System.out.println("Enter two words separated by a space for word search and replacement");
-            System.out.print(">\t");
+            System.out.print("> ");
             try {
                 System.in.read(input);
             } catch (IOException e) {
@@ -293,12 +296,13 @@ public class FindWordReplace {
             words = (new String(input, 0, input.length)).trim();
             if (words.length() > 0) {
                 String[] parameters = words.split(" ");
+                if (parameters.length < 2 || parameters.length > 2) {
+                    System.out.print("Two inputs not provided.");
+                    System.exit(-1);
+                }
                 FindWordReplace.wordReplace(parameters, fileName);
-            } else if (words.length() == 1 || words.length() > 2) {
-                System.out.print("Two inputs not provided.");
-                System.exit(-1);
             } else {
-                System.exit(-1);
+                System.exit(0);
             }
             System.out.println("Resultant file is " + outputFile);
         } while (words.length() > 0);

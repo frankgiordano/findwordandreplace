@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -23,7 +19,7 @@ import java.util.Map.Entry;
  * as line number and value as positions within that line.
  *
  * author: Frank Giordano 10/24/2015
-*/
+ */
 public class FindWordReplace {
 
     // string = word, HashMap<Integer, ArrayList<Integer>> = line #, list of position numbers within the line
@@ -43,12 +39,12 @@ public class FindWordReplace {
         HashMap<Integer, ArrayList<Integer>> wordLinePosInfo;
         dictionary = new HashMap<>();
         newFile = new ArrayList<>();
+        newFile.add("");
         try {
             BufferedReader bReader = new BufferedReader(new FileReader(fileName));
 
             // while we loop through the file, read each line until there is nothing left to read.
             // this assumes we have carriage returns ending each text line.
-            newFile.add("");
             while ((line = bReader.readLine()) != null) {
 
                 lineCount++;
@@ -116,7 +112,7 @@ public class FindWordReplace {
         wordLinePosInfo.put(lineCount, positions);
     }
 
-    public static boolean isWordEmbedded(int position, String word, String line) {
+    private static boolean isWordEmbedded(int position, String word, String line) {
         if (position != 0 && position != line.length() - 1 && position + (word.length() - 1) != (line.length() - 1)) {
             boolean isAlphabeticRightSide = Character.isAlphabetic(line.charAt(position + (word.length())));
             boolean isAlphabeticLeftSide = Character.isAlphabetic(line.charAt(position - 1));
@@ -134,13 +130,32 @@ public class FindWordReplace {
         return false;
     }
 
+    private static void resetNewFile() {
+        String line = "";
+        newFile = new ArrayList<>();
+        newFile.add("");
+        try {
+            BufferedReader bReader = new BufferedReader(new FileReader(fileName));
+            while ((line = bReader.readLine()) != null) {
+                newFile.add(line);
+            }
+            bReader.close();
+        } catch (IOException e) {
+            System.out.print("Error reading file. Error message = " + e.getMessage());
+            System.exit(-1);
+        }
+    }
+
     public static void wordReplace(String[] parameters, String file) {
 
         String searchWord = toLowerCase(parameters[0]);
         String replaceWord = parameters[1];
 
         fileName = file;
-        processFile();
+        if (dictionary == null)
+            processFile();
+        else
+            resetNewFile();
 
         if (!dictionary.containsKey(searchWord)) {
             System.out.println("The following word " + searchWord + " was not found.");

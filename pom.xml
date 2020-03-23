@@ -32,7 +32,7 @@
                             <Created-By>Frank Giordano</Created-By>
                         </manifestEntries>
                     </archive>
-                    <finalName>FindWord</finalName>
+                    <finalName>FindWordReplace</finalName>
                 </configuration>
             </plugin>
         </plugins>

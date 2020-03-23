@@ -39,4 +39,4 @@ At project's root directory, perform the following commands:
 
 3 - mvn clean install
 
-4 - java -jar .\target\FindWordReplace-1.0-SNAPSHOT.jar
+4 - java -jar .\target\FindWordReplace.jar

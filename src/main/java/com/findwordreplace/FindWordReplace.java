@@ -161,33 +161,34 @@ public class FindWordReplace {
 
         if (!dictionary.containsKey(searchWord)) {
             System.out.println("The following word " + searchWord + " was not found.");
-        } else {
-            for (Entry<Integer, ArrayList<Integer>> entry : dictionary.get(searchWord).entrySet()) {
-                foundMsg(searchWord, entry);
-                changingMsg(entry);
+            return;
+        }
 
-                String line = newFile.get(entry.getKey());
-                StringBuilder tmp = new StringBuilder();
-                int index = 0;
-                for (int i = 0; i < entry.getValue().size(); i++) {
-                    int position = entry.getValue().get(i);
+        for (Entry<Integer, ArrayList<Integer>> entry : dictionary.get(searchWord).entrySet()) {
+            foundMsg(searchWord, entry);
+            changingMsg(entry);
 
-                    // get the substring of the line text upto the save position location
-                    // then append the replacement word to the end of the extracted substring
-                    // and store and append it into a tmp StringBuilder...
-                    tmp.append(line.substring(index, position) + replaceWord);
-                    // set index to the next starting location to extract the next substring
-                    // this index will be increased by previous "position" plus the length of the
-                    // searchword so it starts searching for the next occurrence; the index will be
-                    // beyond the previous search range... value searchWord length
-                    index = position + searchWord.length();
-                }
+            String line = newFile.get(entry.getKey());
+            StringBuilder tmp = new StringBuilder();
+            int index = 0;
+            for (int i = 0; i < entry.getValue().size(); i++) {
+                int position = entry.getValue().get(i);
 
-                tmp.append(line.substring(index));
-
-                newFile.set(entry.getKey(), tmp.toString());
-                changedMsg(entry);
+                // get the substring of the line text upto the save position location
+                // then append the replacement word to the end of the extracted substring
+                // and store and append it into a tmp StringBuilder...
+                tmp.append(line.substring(index, position) + replaceWord);
+                // set index to the next starting location to extract the next substring
+                // this index will be increased by previous "position" plus the length of the
+                // searchword so it starts searching for the next occurrence; the index will be
+                // beyond the previous search range... value searchWord length
+                index = position + searchWord.length();
             }
+
+            tmp.append(line.substring(index));
+
+            newFile.set(entry.getKey(), tmp.toString());
+            changedMsg(entry);
         }
 
         writeOutputFile();
@@ -250,6 +251,7 @@ public class FindWordReplace {
             System.out.print("Error writing to output file. Error message = " + e.getMessage());
             System.exit(-1);
         }
+        System.out.println("Resultant file is " + outputFile);
     }
 
     private static String toLowerCase(String input) {
@@ -321,7 +323,6 @@ public class FindWordReplace {
             } else {
                 System.exit(0);
             }
-            System.out.println("Resultant file is " + outputFile);
         } while (words.length() > 0);
     }
 

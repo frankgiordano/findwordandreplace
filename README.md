@@ -15,7 +15,7 @@ each word and stores its location/position within the line.
 The main data structure is a HashMap that has a key of word and value of another HashMap that has key
 as line number and value as positions within that line.
 
-NOTE: This problem stores the first character position of the word within the a line number.
+NOTE: This program stores the first character position of the word within the a line number.
 It does not store the occurence position of the entire string word.
 
 For instance,
